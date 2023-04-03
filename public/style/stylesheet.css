@@ -34,6 +34,9 @@ body {
   width: 100%;
   margin: auto;
 }
+.flex-column {
+  flex-direction: column;
+}
 .flex-justify-between {
   justify-content: space-between;
 }
@@ -157,101 +160,47 @@ button {
 #submit:hover{
   filter: invert();
 }
-.error-box{
-  text-align: center;
-  font-size: 1.5rem;
-}
-.error-box p {
-  color: var(--primary-color);
-}
-.valid-input{
-  border-bottom: 2px solid var(--primary-color);
-}
-.forgot-pwd{
-  color: var(--primary-text-color);
-  font-size: 1rem;
+.home-btn{
   text-decoration: none;
-}
-
-.eye-open-icon,.eye-close-icon {
-  position: absolute;
-  bottom: 0;
-  padding: 0.5rem;
+  color: white;
   font-size: 1rem;
-  right: 0;
-  cursor: pointer;
+  padding: 0.5rem;
+  border: 1px solid white;
 }
-.hide-icon {
-  display: none !important;
-}
-.form-inline-logo{
-  width: 70px;
-  margin-bottom: 0.7rem;
-}
-#checklist {
-  margin: 1rem 0;
-  gap:1rem;
-}
-.profile-pic-container{
-  z-index: 1;
-  width: 200px;
-  height: 200px;
-  border-radius:50%;
-  border: 8px solid var(--primary-text-color);
-}
-.profile-pic-container img {
+.books {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: inherit;
+  height: auto;
 }
-.contacts{
-  gap: 2rem;
+.book{
+  max-width: 25%;
+  width: 390px;
+  border-radius: 10px;
+  border: 1px solid white;
+  text-align: center;
+}
+.book .cover{
+  height: 200px;
+  width: 100%;
+}
+.book img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.menu {
   padding: 1rem;
 }
-.interests{
-  margin-bottom: 1rem;
-  font-size: larger;
-  color: var(--secondary-text-color);
+a{
+  text-decoration: none;
+  color: white;
+  border: 1px solid white;
+  margin: 1rem;
+  font-size: 1rem;
+  padding: 0.5rem;
 }
-.user-fullname{
-  color: var(--glowing-blue);
-  margin-top: 0.5rem;
+#btn{
+  cursor: pointer;
 }
-.profile-page .container{
-  z-index: 1000;
+.added{
+  background-color: rgb(13, 237, 13);
 }
-.profile-page .container::before{
-  content:"";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  width:100px;
-  height:100px;
-  opacity: 10%;
-  background-image: url(/public/assets/lightbluelogo.png);
-  background-size: 700px 700px;
-  width: 100%;
-  height: 100%;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-  
-}
-.nav-profile-pic{
-  height:60px;
-  width:60px;
-  border-radius: 50%;
-  border : 4px solid var(--glowing-blue);
-  
-  }
-  .nav-profile-pic img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: inherit;
-  }
-  .error-page{
-    font-size: 3rem;
-  }

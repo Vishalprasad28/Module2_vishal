@@ -1,27 +1,19 @@
 $(document).ready(function(){
-  $('#login-form').submit(function(e){
+  $('#book-form').submit(function(e){
     var formData = new FormData(this);
     e.preventDefault();
     $(".error-box p").html("");
     $('#submit').attr('disabled',true);
     var formData = new FormData(this);
    $.ajax({
-     url: '../Controller/LoginValidation.php',
+     url: '../Controller/BookValidation.php',
      type: 'POST',
      data: formData,
      success: function (data, status) {
-      var data = $.parseJSON(data);
       if (status == 'success') {
         $('#submit').attr('disabled', false);
-        if (data.message == 'success') {
-          if (data.role == 'author') {
-            window.location.href = 'bookform.php';
-          }
-          else if (data.role == 'reader') {
-            window.location.href = 'accountoverview.php';
-          }
-        }
-        $('.error-box').html(data.message);
+        alert(data);
+        $('.error-box').html(data);
       }
      },
      cache: false,

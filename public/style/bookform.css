@@ -1,0 +1,65 @@
+:root{
+  --primary-text-color:white;
+  --secondary-text-color: rgb(206, 206, 206);
+  --primary-color: rgba(255,68,254,255);
+  --secondary-color: rgba(13,7,55,255);
+  --glowing-blue: #01ffff;
+  --black-shade: rgb(15, 15, 15);
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  transition: all 0.5s ease-in-out;
+  /* border: 1px solid red; */
+}
+body {
+  min-height: 100vh;
+  min-width: 100vw;
+  background-color:rgb(15, 15, 15);
+  background-repeat: no-repeat;
+  background-size:cover;
+  background-position: center;
+  backdrop-filter: blur(5px);
+  color:var(--primary-text-color);
+  font-family: 'Nanum Gothic', sans-serif;
+  font-family: 'Quicksand', sans-serif;
+}
+.container{
+  min-height: 100vh;
+  max-width: 1180px;
+  width: 100%;
+  margin: auto;
+}
+.flex-justify-between {
+  justify-content: space-between;
+}
+.flex-justify{
+  justify-content: center;
+}
+.flexing{
+  display: flex;
+  align-items: center;
+}
+.wrapping{
+  flex-wrap: wrap;
+}
+.flex-column {
+  flex-direction: column;
+}
+form {
+  width: 50%;
+}
+input[type=text], input[type=number]{
+  padding: 0.5rem;
+  margin-top: 0.5rem ;
+  width: 100%;
+}
+button{
+  padding: 1rem;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}

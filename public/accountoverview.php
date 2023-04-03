@@ -4,8 +4,6 @@ if (!isset($_SESSION['login'])) {
   header('location:/login');
 }
 else {
-  echo $_SESSION['fullName'];
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,10 +19,18 @@ else {
 		<title>Document</title>
 	</head>
 	<body>
-    <h1> <?php echo $_SESSION['fullName'];?></h1>
-    <a href="/home">Home</a>
-    <section>
+    <div class="container flex-column flexing flex-justify">
+      <h1> <?php echo $_SESSION['fullName'];?></h1>
+      <br>
+      <a class="home-btn" href="home.php">Home</a>
+      <section class="books flexing flex-justify-between .wrapping">
 
-    </section>
+      </section>
+      <button class="load-more">Load More</button>
+    </div>
   </body>
-</html>  
+  <script src="js/booksFetch.js"></script>
+</html>
+<?php 
+}
+?>

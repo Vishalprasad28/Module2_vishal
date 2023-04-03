@@ -15,18 +15,13 @@
     <div class="container flexing">
       <div class="container-extended flexing flex-justify-between">
         <div class="left">
-          <form action="/loginValidation" id="login-form" method="post">
-            <img src="public/assets/lightbluelogo.png" class="form-inline-logo" alt="">
+          <form action="../Controller/LoginValidation.php" id="login-form" method="post">
             <h1>Login Page</h1>
             <label for="uName">User name</label>
             <input type="text" name="uName"id="uName" required>
             <p id="uName-error">&nbsp;</p>
-            <div id="pwd-container">
-            <i class="fa-regular fa-eye eye-open-icon hide-icon"></i>  
-            <i class="fa-sharp fa-regular fa-eye-slash eye-close-icon"></i>
-              <label for="pwd">Password</label>
-              <input type="password" name="pwd" id="pwd" required>
-            </div>
+            <label for="pwd">Password</label>
+            <input type="password" name="pwd" id="pwd" required>
             <p id="pwd-error">&nbsp;</p>
             <button name="login" type="submit" id="submit">Log in</button>
             <br>
@@ -38,4 +33,5 @@
      </div>
     </div>
   </body>
+  <script src="js/formValidation.js"></script>
 </html>
