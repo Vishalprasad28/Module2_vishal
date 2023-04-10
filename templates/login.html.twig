@@ -1,0 +1,15 @@
+{% include "base.html.twig" %}
+  <body>
+    <div class="container">
+      <form action="/loginValidation" method="POST" id="login-form">
+        <label for="uName">Enter the User Name</label><br>
+        <input type="text" name="uName" id="uName" required><br>
+        <label for="pwd">Enter the Password</label><br>
+        <input type="password" name="pwd" id="pwd" required><br>
+        <input type="submit" name="submit" id="submit">
+      </form>
+      <p class="error-msg">&nbsp;</p>
+    </div>
+  </body>
+  <script src="js/formhandler.js"></script>
+</html>
