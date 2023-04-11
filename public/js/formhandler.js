@@ -12,8 +12,20 @@ $(document).ready(function(){
     signUp(this);
   });
   
-  
+  //Book Upload Form functionality
+  $('#book-form').submit(function(e){
+    e.preventDefault();
+    bookUpload(this);
+  }) 
+
+
   //All Function Here
+
+  //Function to diaplay the message in error-box
+  function showMessage(btn, message) {
+    $('#submit').html(btn);
+    $('.error-box').html(message);
+  }
 
   //Function to convert the ford data into an array
   function convertToArray(e) {
@@ -33,7 +45,10 @@ $(document).ready(function(){
       data: formData,
       success: function (data, status) {
         if (status == 'success') {
-         alert(data.message);
+          showMessage('login', data.message);
+          if (data.message == 'Registered') {
+           window.location.href = '/upload';
+          }
         }
       },
       cache: false,
@@ -51,12 +66,36 @@ $(document).ready(function(){
       data: formData,
       success: function (data, status) {
         if (status == 'success') {
-         alert(data.message);
+         showMessage('login', data.message);
+         if (data.message == 'success') {
+           window.location.href = '/upload';
+         }
         }
       },
       cache: false,
       contentType: false,
       processData: false
   });
+  }
+
+  //Book pload for validation here
+  function bookUpload(form) {
+    var formData = new FormData(form);
+    $.ajax({
+      url: '/bookUploadValidation',
+      type: 'POST',
+      data: formData,
+      success: function (data, status) {
+        if (status == 'success') {
+          showMessage('upload', data.message);
+          if (data.message == 'success') {
+            form.reset();
+          }
+        }
+      },
+      cache: false,
+      contentType: false,
+      processData: false
+    });
   }
 });

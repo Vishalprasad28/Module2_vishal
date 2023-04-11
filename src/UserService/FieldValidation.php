@@ -110,7 +110,7 @@ trait FieldValidation {
       }
       else {
         $this->randomPicName = uniqid().".".$this->imageFile->getClientOriginalExtension();
-        $path = "../public/cover/";
+        $path = "../public/coverImg/";
         $this->imageFile->move($path, $this->randomPicName); // move the file to a path
         return TRUE;
       }

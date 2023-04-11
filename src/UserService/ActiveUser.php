@@ -1,6 +1,5 @@
 <?php 
 namespace App\UserService;
-
 use App\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
@@ -89,6 +88,7 @@ class ActiveUser {
       return "Wrong Password";
     }
     else {
+      $this->sessionUser();
       return 'success';
     }
   }
@@ -126,12 +126,24 @@ class ActiveUser {
         return 'Failed to SignUp';
       }
       else {
+        $this->sessionUser();
         return 'Registered';
       }
     }
     else {
       return 'User Already Exists';
     }
+  }
+
+  /**
+   * Function to store the user info to a session
+   * 
+   *   @return void
+   */
+  private function sessionUser() {
+    $user = $this->em->getRepository(User::class)->findOneBy(['userName' => $this->userName]);
+    $_SESSION['user'] = $user->getId();
+    $_SESSION['login'] = TRUE;
   }
 
   /**

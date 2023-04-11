@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BooksRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -37,6 +39,14 @@ class Books
 
     #[ORM\Column(length: 255)]
     private ?string $category = null;
+
+    #[ORM\OneToMany(mappedBy: 'bookId', targetEntity: Bucket::class)]
+    private Collection $buckets;
+
+    public function __construct()
+    {
+        $this->buckets = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -135,6 +145,36 @@ class Books
     public function setCategory(string $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Bucket>
+     */
+    public function getBuckets(): Collection
+    {
+        return $this->buckets;
+    }
+
+    public function addBucket(Bucket $bucket): self
+    {
+        if (!$this->buckets->contains($bucket)) {
+            $this->buckets->add($bucket);
+            $bucket->setBookId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBucket(Bucket $bucket): self
+    {
+        if ($this->buckets->removeElement($bucket)) {
+            // set the owning side to null (unless already changed)
+            if ($bucket->getBookId() === $this) {
+                $bucket->setBookId(null);
+            }
+        }
 
         return $this;
     }

@@ -1,0 +1,12 @@
+{% include "mainpagehtmlstarter.html.twig" %}
+  <body userId = {{id}}>
+    <div class="container flexing flex-column flex-justify">
+      <h1 class="fullName">{{fullName}}</h1>
+      <ul class="menu flexing">
+        <li><a href="/wishlist">Wishlist</a></li>
+        <li><a href="/bucket">Bucket</a></li>
+        <li><a href="/logout">Logout</a></li>
+      </ul>
+    </div>
+  </body>
+</html>

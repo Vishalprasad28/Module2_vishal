@@ -1,0 +1,44 @@
+{% include "base.html.twig" %}
+	<body>
+      <div class="container flexing flex-column flex-justify">
+        <center><h1>Form</h1></center>
+        <form action="/bookUploadValidation" method="post" id= "book-form" enctype="multipart/form-data">
+          <label for="id">Book Id:</label><br>
+          <input type="text" name="id" placeholder="Book_Id" required><br>
+          <label for="cover">Cover:</label><br>
+          <input type="file" name="cover"><br>
+          <label for="title">Title:</label><br>
+          <input type="text" name="title" placeholder="Title" required><br>
+          <label for="genere">Genere:</label><br>
+          <select name="genere" id="genere">
+            <option value="drama">drama</option>
+            <option value="western">western</option>
+            <option value="adult">adult</option>
+            <option value="thriller">thriller</option>
+            <option value="horror">horror</option>
+            <option value="war">war</option> 
+          </select><br><br>
+          <label for="date">Publication date:</label><br>
+          <input type="date" name="date" placeholder="Year" required><br>
+          <label for="author">Author:</label><br>
+          <input type="text" name="author" placeholder="Author" required><br>
+          <label for="id">Rating:</label><br>
+          <input type="number" name="rating" placeholder="Rating" required><br>
+          <label for="category">Category:</label>
+          <select name="category" id="category">
+            <option value="classic">Classic</option>
+            <option value="adventure">Advenure</option>
+            <option value="crime">Crime</option>
+            <option value="horror">Horror</option>
+            <option value="plays">Plays</option>
+            <option value="romance">Romance</option> 
+          </select><br>
+          <button type='submit' name="submit" id="submit">Upload</button>
+        </form>
+        <p class="error-box">
+          &nbsp;
+        </p>
+    </div>
+  </body>
+  <script src="js/formhandler.js"></script>
+ </html> 
