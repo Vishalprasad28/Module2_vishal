@@ -1,5 +1,5 @@
 <?php
-namespace UserService;
+namespace App\UserService;
 
 use Symfony\Component\Dotenv\Dotenv;
 

@@ -3,10 +3,16 @@ $(document).ready(function(){
   //Login Functionality here
   $('#login-form').submit(function(e){
     e.preventDefault();
-    var form = $(this).serializeArray();
-    login(form);
+    login(this);
   });
 
+  //SignUp Functionality here
+  $('#signup-form').submit(function(e){
+    e.preventDefault();
+    signUp(this);
+  });
+  
+  
   //All Function Here
 
   //Function to convert the ford data into an array
@@ -18,12 +24,39 @@ $(document).ready(function(){
     return array;
   }
 
+  //Sign Up Form Validation Here
+  function signUp(form) {
+    var formData = new FormData(form);
+    $.ajax({
+      url: '/signUpValidation',
+      type: 'POST',
+      data: formData,
+      success: function (data, status) {
+        if (status == 'success') {
+         alert(data.message);
+        }
+      },
+      cache: false,
+      contentType: false,
+      processData: false
+  });
+  }
+
   //Login Form Validation
-  function login(e) {
-    var array = convertToArray(e);
-    $.post('/loginValidation', array, function(data, status){
-      alert(status);
-      alert(data.message);
-    });
+  function login(form) {
+    var formData = new FormData(form);
+    $.ajax({
+      url: '/loginValidation',
+      type: 'POST',
+      data: formData,
+      success: function (data, status) {
+        if (status == 'success') {
+         alert(data.message);
+        }
+      },
+      cache: false,
+      contentType: false,
+      processData: false
+  });
   }
 });

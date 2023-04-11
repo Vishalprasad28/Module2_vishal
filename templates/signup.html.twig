@@ -1,0 +1,23 @@
+{% include "base.html.twig" %}
+  <body>
+    <div class="container">
+      <form action="/signUpValidation" method="POST" id="signup-form">
+        <label for="fullName">Enter the Full Name</label><br>
+        <input type="text" name="fullName" id="fullName" required><br>
+        <label for="uName">Enter the User Name</label><br>
+        <input type="text" name="uName" id="uName" required><br>
+        <label for="role">Role</label><br>
+        <input type="radio" name="role" value="reader" checked>Reader
+        <input type="radio" name="role" value="author">Author
+        <br>
+        <label for="pwd">Enter the Password</label><br>
+        <input type="password" name="pwd" id="pwd" required><br>
+        <label for="confPwd">Confirm Your Password</label><br>
+        <input type="password" name="confPwd" id="confPwd" required><br>
+        <input type="submit" name="submit" id="submit">
+      </form>
+      <p class="error-msg">&nbsp;</p>
+    </div>
+  </body>
+  <script src="js/formhandler.js"></script>
+</html>
