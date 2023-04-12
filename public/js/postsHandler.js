@@ -11,12 +11,13 @@ $(document).ready(function(){
   $('.books').on('click', '#btn', function(){
     $(this).toggleClass('added');
     if ($(this).hasClass('added')) {
+      //Adding to the bucket/Wish List
       addToBucket($(this).parent().attr('book_id'), 1);
     }
     else {
+      //Removing from the bucket/Wish List
       addToBucket($(this).parent().attr('book_id'), 0);
     }
-    // addToBucket();
   });
   
   //All Functions here

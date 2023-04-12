@@ -1,10 +1,10 @@
 $(document).ready(function(){
   var offset = 0;
-  getBucketBooks(offset);
+  getWishListBooks(offset);
 
   //Load More Button Functionality
   $('.load-more').click(function(){
-    getBucketBooks(offset);
+    getWishListBooks(offset);
   });
 
   //add to bucket
@@ -23,9 +23,9 @@ $(document).ready(function(){
 
    //All Functions here
 
-  //Function to fetch all the books from the bucketlist database
-  function getBucketBooks(e) {
-    $.post('/fetchBucketList', { offset: offset}, function(data, status) {
+  //Function to fetch all the books from the Wishlist database
+  function getWishListBooks(e) {
+    $.post('/fetchWishList', { offset: offset}, function(data, status) {
       if (status == 'success') {
         $('.books').append(data);
         offset = $('.books').children().length;

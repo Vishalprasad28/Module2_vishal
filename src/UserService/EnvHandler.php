@@ -4,6 +4,7 @@ namespace App\UserService;
 use Symfony\Component\Dotenv\Dotenv;
 
 class EnvHandler {
+  
   /**
    * @var string $apiKey
    *   Stores the APi key of the API service the app uses

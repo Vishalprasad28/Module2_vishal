@@ -163,7 +163,7 @@ class BooksHandler {
    * Function to make a record of the book in DB
    *   
    *   @return bool
-   *     return true or false based on upload status of the book
+   *     Return true or false based on upload status of the book
    */
   private function makeARecord() {
     $book = new Books();
@@ -194,7 +194,7 @@ class BooksHandler {
    *     Offset value for the books list
    * 
    *   @return array
-   *     returns the array of the objects of books type
+   *     Returns the array of the objects of books type
    */
   public function fetchBooks() {
     $this->offset = (int) $this->request->request->get('offset');
@@ -346,4 +346,71 @@ class BooksHandler {
       return FALSE;
     }
   }
+
+  /**
+   * Function to create the book array feom the list of book ids
+   * 
+   *   @param array $bookIds
+   *     Contains the list of book ids to get the book object from
+   * 
+   *   @return array
+   *     Returns thhe array of books objects
+   */
+  private function getBookArray(array $bookIds) {
+    $bookRepo = $this->em->getRepository(Books::class);
+    $array = array();
+    foreach ($bookIds as $bookItem) {
+      $book = $bookRepo->findOneBy(['id' => $bookItem->getBookId()->getId()]);
+      array_push($array, $book);
+    }
+    return $array;
+  }
+
+  /**
+   * Function to fetch the all bucket items specific to the user
+   * 
+   *   @param int $userId
+   *     User Id of the user
+   * 
+   *   @return array
+   *     Returns an array of all books in the bucket
+   */
+  public function fetchBuckeyItems(int $userId) {
+    $offset = $this->request->get('offset');
+    try {
+      $userRepo = $this->em->getRepository(User::class);
+      $user = $userRepo->findOneBy(['id' => $userId]);
+      $bucketRepo = $this->em->getRepository(Bucket::class);
+      $bucketItems = $bucketRepo->findBy(['addedBy' => $user], ['id' => 'DESC'], 9, $offset);
+      return $this->getBookArray($bucketItems);
+    }
+    catch (Exception $e) {
+      return [];
+    }
+  }
+
+  /**
+   * Function to fetch the all wishlist items specific to the user
+   * 
+   *   @param int $userId
+   *     User Id of the user
+   * 
+   *   @return array
+   *     Returns an array of all books in the WishList
+   */
+  public function fetchWishListItems(int $userId) {
+    $offset = $this->request->get('offset');
+    try {
+      $userRepo = $this->em->getRepository(User::class);
+      $user = $userRepo->findOneBy(['id' => $userId]);
+      $wishListRepo = $this->em->getRepository(Wishlist::class);
+      $wishListItems = $wishListRepo->findBy(['addedBy' => $user], ['id' => 'DESC'], 9, $offset);
+      return $this->getBookArray($wishListItems);
+    }
+    catch (Exception $e) {
+      return [];
+    }
+  }
+
+
 }
