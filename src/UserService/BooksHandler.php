@@ -163,7 +163,7 @@ class BooksHandler {
    * Function to make a record of the book in DB
    *   
    *   @return bool
-   *     return true or false based on upload status of the book
+   *     Return true or false based on upload status of the book
    */
   private function makeARecord() {
     $book = new Books();
@@ -194,7 +194,7 @@ class BooksHandler {
    *     Offset value for the books list
    * 
    *   @return array
-   *     returns the array of the objects of books type
+   *     Returns the array of the objects of books type
    */
   public function fetchBooks() {
     $this->offset = (int) $this->request->request->get('offset');
@@ -354,7 +354,7 @@ class BooksHandler {
    *     Contains the list of book ids to get the book object from
    * 
    *   @return array
-   *     returns thhe array of books objects
+   *     Returns thhe array of books objects
    */
   private function getBookArray(array $bookIds) {
     $bookRepo = $this->em->getRepository(Books::class);
@@ -373,7 +373,7 @@ class BooksHandler {
    *     User Id of the user
    * 
    *   @return array
-   *     returns an array of all books in the bucket
+   *     Returns an array of all books in the bucket
    */
   public function fetchBuckeyItems(int $userId) {
     $offset = $this->request->get('offset');
@@ -396,7 +396,7 @@ class BooksHandler {
    *     User Id of the user
    * 
    *   @return array
-   *     returns an array of all books in the WishList
+   *     Returns an array of all books in the WishList
    */
   public function fetchWishListItems(int $userId) {
     $offset = $this->request->get('offset');

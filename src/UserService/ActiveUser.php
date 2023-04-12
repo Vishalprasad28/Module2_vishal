@@ -8,7 +8,6 @@ use Exception;
 /**
  * This Class Conatins the User credentials like Full name username and more
  */
-
 class ActiveUser {
 
   /**
