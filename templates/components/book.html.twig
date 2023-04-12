@@ -4,5 +4,5 @@
   </div>
   <h3 id="title">{{book.title}}</h3>
   <h4 id="author">{{book.author}}</h4>
-  <button id="btn" class="{{book.added ? 'added' : ''}}">Add to bucket</button>
+  <button id="btn" class="{{book.addedToBucket or book.addedToWishlist ? 'added' : ''}}">Add to bucket</button>
 </div>

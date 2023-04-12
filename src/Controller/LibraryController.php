@@ -6,6 +6,7 @@ session_start();
 use App\Entity\Books;
 use App\Entity\Bucket;
 use App\Entity\User;
+use App\Entity\Wishlist;
 use App\UserService\ActiveUser;
 use App\UserService\BooksHandler;
 use Doctrine\ORM\EntityManagerInterface;
@@ -107,11 +108,16 @@ class LibraryController extends AbstractController
   private function arrayBuilder(array $array): array {
     $books = array();
     $bucketRepo = $this->em->getRepository(Bucket::class);
+    $wishlistRepo = $this->em->getRepository(Wishlist::class);
     $userRepo = $this->em->getRepository(User::class);
     $user = $userRepo->findOneBy(['id' => $_SESSION['user']]);
     for($i = 0; $i < count($array); $i++) {
       $books[$i]['id'] = $array[$i]->getId();
-      $books[$i]['added'] = $bucketItem = $bucketRepo->findOneBy(['bookId' => $array[$i], 'addedBy' => $user]);
+      $books[$i]['addedToWishlist'] = NULL;
+      $books[$i]['addedToBucket'] = $bucketRepo->findOneBy(['bookId' => $array[$i], 'addedBy' => $user]);
+      if (empty($books[$i]['addedToBucket'])) {
+        $books[$i]['addedToWishlist'] = $wishlistRepo->findOneBy(['bookId' => $array[$i], 'addedBy' => $user]);
+      }
       $books[$i]['cover'] = $array[$i]->getCoverImg();
       $books[$i]['title'] = $array[$i]->getTitle();
       $books[$i]['author'] = $array[$i]->getAuthor();
@@ -157,7 +163,7 @@ class LibraryController extends AbstractController
   }
 
   /**
-   * Route for the Login Form Validation
+   * Route for the SignUp Form Validation
    * 
    *   @param Request $request
    *     request madeby the server
@@ -178,7 +184,7 @@ class LibraryController extends AbstractController
   }
 
   /**
-   * Route for the Login Form Validation
+   * Route for the Books Upload Form Validation
    * 
    *   @param Request $request
    *     request madeby the server
@@ -226,28 +232,28 @@ class LibraryController extends AbstractController
   }
 
   /**
-   * Route to fech the books from the table
+   * Route to add or remove the books from bucket list
    * 
    *   @param Request $request
    *     Request type variable to gert the requested values
    *   
-   *  @return Response
+   *   @return Response
    *    returns the Response
    */
   #[Route('/addToBucket', name: 'addToBucket')]
   public function addToBucket(request $request): Response {
     if ($request->isXmlHttpRequest()) {
       $obj = new BooksHandler($request, $this->em);
-      $message = $obj->bucketListHandler($_SESSION['user']);
+      $obj->bucketListHandler($_SESSION['user']);
       return $this->json([
-        'message' => $message
+        'message' => 'added'
       ]);
     }
     return $this->render('error.html.twig');
   }
 
   /**
-   * Route to fech the books from the table
+   * Route to fetch the books from the bucket list
    * 
    *   @param Request $request
    *     Request type variable to gert the requested values
@@ -258,19 +264,46 @@ class LibraryController extends AbstractController
   #[Route('/fetchBucketList', name: 'fetchBucketList')]
   public function fetchBucketList(Request $request) {
     if ($request->isXmlHttpRequest()) {
-      $bookRepo = $this->em->getRepository(Books::class);
-      $book = $bookRepo->findOneBy(['id' => 4]);
-      $date = new \DateTime('@'.strtotime('now'));
-      $pubDate = $book->getDateOfPublication();
-      if ($date <= $pubDate) {
-        $message = 'here';
+      $obj = new BooksHandler($request, $this->em);
+      $array = $obj->fetchBuckeyItems($_SESSION['user']);
+      $books = $this->arrayBuilder($array);
+      try {
+        return $this->render('components/books.html.twig',
+        ['books' => $books]);
       }
-      else {
-        $message = 'there';
+      catch(Exception $e) {
+        return $this->json([
+          'message' => $e->getMessage()
+        ]);
       }
-      return $this->json([
-        'message' => $message
-      ]);
+    }
+    return $this->render('error.html.twig');
+  }
+
+  /**
+   * Route to fetch the books from the WishList
+   * 
+   *   @param Request $request
+   *     Request type variable to gert the requested values
+   *   
+   *   @return Response
+   *     returns the Response
+   */
+  #[Route('/fetchWishList', name: 'fetchWishList')]
+  public function fetchWishList(Request $request) {
+    if ($request->isXmlHttpRequest()) {
+      $obj = new BooksHandler($request, $this->em);
+      $array = $obj->fetchWishListItems($_SESSION['user']);
+      $books = $this->arrayBuilder($array);
+      try {
+        return $this->render('components/books.html.twig',
+        ['books' => $books]);
+      }
+      catch(Exception $e) {
+        return $this->json([
+          'message' => $e->getMessage()
+        ]);
+      }
     }
     return $this->render('error.html.twig');
   }
